@@ -35,16 +35,8 @@ class MainActivity : AppCompatActivity() {
             shareCount?.text = plural(post.shared,'K', 'M')
             viewsCount?.text = plural(post.viewed,'K', 'M')
 
-            root.setOnClickListener {
-                Log.d("stuff", "stuff")
-            }
-
-            avatar.setOnClickListener {
-                Log.d("stuff", "avatar")
-            }
 
             like?.setOnClickListener {
-                Log.d("stuff", "like")
                 post.likedByMe = !post.likedByMe
                 like?.setImageResource(
                     if (post.likedByMe) R.drawable.ic_liked_24 else R.drawable.ic_like_24
@@ -54,12 +46,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             share?.setOnClickListener {
-                Log.d("stuff", "shared")
                 shareCount?.text = plural(post.shared++,'K', 'M')
-            }
-
-            views?.setOnClickListener {
-                Log.d("stuff", "viewed")
             }
         }
     }
