@@ -10,4 +10,3 @@ data class Post(
     val shared: Int = 0,
     val viewed: Int = 0
 )
-
