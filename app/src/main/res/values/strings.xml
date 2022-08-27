@@ -12,4 +12,5 @@
     <string name="menu_add">Add</string>
     <string name="error_empty_content">Content can\'t be empty</string>
     <string name="post_editMessage">Edit Message</string>
+    <string name="description_post_viewed">Viewed</string>
 </resources>
