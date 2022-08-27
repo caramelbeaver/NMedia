@@ -1,8 +1,9 @@
 package ru.netology.nmedia.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,9 @@ import ru.netology.nmedia.servicecode.plural
 interface OnInteractionListener {
     fun onLike(post: Post) {}
     fun onShare(post: Post) {}
+    fun onEdit(post: Post) {}
+    fun onRemove(post: Post) {}
+    fun onAdd() {}
 }
 
 class PostsAdapter(
@@ -42,17 +46,38 @@ class PostViewHolder(
             author.text = post.author
             published.text = post.published
             content.text = post.content
-            like.setImageResource(
-                if (post.likedByMe) R.drawable.ic_liked_24 else R.drawable.ic_like_24
+            favorite.setImageResource(
+                if (post.likedByMe) R.drawable.ic_favorite_24dp_red else R.drawable.ic_favorite_24dp
             )
-            likeCount.text = plural(post.likes, 'K', 'M')
+            favoriteCount.text = plural(post.likes, 'K', 'M')
             shareCount.text = plural(post.shared, 'K', 'M')
-            viewsCount.text = plural(post.viewed, 'K', 'M')
-//            if (post.likedByMe) {
-//                like.setImageResource(R.drawable.ic_liked_24)
-//            }
+            visibilityCount.text = plural(post.viewed, 'K', 'M')
 
-            like.setOnClickListener {
+            menu.setOnClickListener {
+                PopupMenu(it.context, it).apply {
+                    inflate(R.menu.options_post)
+                    setOnMenuItemClickListener { item ->
+                        when (item.itemId) {
+                            R.id.remove -> {
+                                onInteractionListener.onRemove(post)
+                                true
+                            }
+                            R.id.edit -> {
+                                onInteractionListener.onEdit(post)
+                                true
+                            }
+                            R.id.add -> {
+                                onInteractionListener.onAdd()
+                                true
+                            }
+
+                            else -> false
+                        }
+                    }
+                }.show()
+            }
+
+            favorite.setOnClickListener {
                 onInteractionListener.onLike(post)
             }
             share.setOnClickListener {
