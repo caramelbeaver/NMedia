@@ -1,7 +1,6 @@
 package ru.netology.nmedia.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
@@ -46,12 +45,17 @@ class PostViewHolder(
             author.text = post.author
             published.text = post.published
             content.text = post.content
-            favorite.setImageResource(
-                if (post.likedByMe) R.drawable.ic_favorite_24dp_red else R.drawable.ic_favorite_24dp
-            )
-            favoriteCount.text = plural(post.likes, 'K', 'M')
-            shareCount.text = plural(post.shared, 'K', 'M')
-            visibilityCount.text = plural(post.viewed, 'K', 'M')
+            favorite.isChecked = post.likedByMe
+            favorite.text = plural(post.likes, 'K', 'M')
+            share.text = plural(post.shared, 'K', 'M')
+            visibility.text = plural(post.viewed, 'K', 'M')
+
+//            favorite.setImageResource(
+//                if (post.likedByMe) R.drawable.ic_favorite_24dp_red else R.drawable.ic_favorite_24dp
+//            )
+//            favoriteCount.text = plural(post.likes, 'K', 'M')
+//            shareCount.text = plural(post.shared, 'K', 'M')
+//            visibilityCount.text = plural(post.viewed, 'K', 'M')
 
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
@@ -70,7 +74,6 @@ class PostViewHolder(
                                 onInteractionListener.onAdd()
                                 true
                             }
-
                             else -> false
                         }
                     }
