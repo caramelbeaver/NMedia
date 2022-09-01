@@ -11,10 +11,10 @@ class PostRepositoryInMemoryImpl : PostRepository {
             id = nextId++,
             author = "Нетология. Университет интернет-профессий будущего",
             content = "https://www.youtube.com/watch?v=WhWc3b3KhnY",
-            published = "17 августа в 19:00",
+            published = "12 апреля в 12:12",
             likedByMe = false,
             likes = 9_999,
-            shared = 1_099, //9_996,
+            shared = 1_099,
             viewed = 2
         ),
         Post(
@@ -24,7 +24,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
             published = "17 августа в 11:00",
             likedByMe = false,
             likes = 999,
-            shared = 9_996,
+            shared = 1_099, //9_996,
             viewed = 2_390_480
         ),
         Post(
@@ -101,7 +101,24 @@ class PostRepositoryInMemoryImpl : PostRepository {
 
     private val data = MutableLiveData(posts)
 
+    private val empty = Post(
+        id = 0,
+        content = "",
+        author = "",
+        likedByMe = false,
+        published = ""
+    )
+    private val dataPost = MutableLiveData(empty)
+
     override fun getAll(): LiveData<List<Post>> = data
+
+    override fun getPost(): LiveData<Post> = dataPost
+    override fun getPostById(id: Long): Post? {
+        dataPost.value = posts.find {
+            it.id == id
+        }
+        return dataPost.value
+    }
 
     override fun save(post: Post) {
         if (post.id == 0L) {
