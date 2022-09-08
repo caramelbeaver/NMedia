@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ru.netology.nmedia"
-    xmlns:dist="http://schemas.android.com/apk/distribution">
+    package="ru.netology.nmedia">
 
-    <dist:module dist:instant="true" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,18 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NMedia">
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.AppActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".activity.IntentHandlerActivity"
-            android:exported="true">
+            <nav-graph android:value="@navigation/nav_main" />
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -33,18 +23,12 @@
             </intent-filter>
 
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data android:mimeType="video/*"/>
-                <data android:scheme="*"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".activity.NewPostActivity"
-            android:exported="false" />
     </application>
 
 </manifest>
